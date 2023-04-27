@@ -1,24 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import './App.scss';
+import AppHeader from './components/shared/app-header/AppHeader';
+import BreedListPage from './pages/app/breed-list/BreedListPage';
+import CatDetailPage from './pages/app/cat-detail/CatDetailPage';
+import AboutPage from './pages/shared/about/AboutPage';
+import ContactPage from './pages/shared/contact/ContactPage';
+import NotFoundPage from './pages/shared/not-found/NotFoundPage';
+import FavoriteCatProvider from './context/favorite-cat/FavoriteCatContext';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main>
+      <Router>
+        <FavoriteCatProvider>
+          <main>
+            <AppHeader />
+            <Routes>
+              <Route path='/' element={<BreedListPage />} />
+              <Route path='/cats/:id' element={<CatDetailPage />} />
+              <Route path='/about' element={<AboutPage />} />
+              <Route path='/contact' element={<ContactPage />} />
+              <Route path='*' element={<NotFoundPage />} />
+            </Routes>
+          </main>
+        </FavoriteCatProvider>
+      </Router>
+    </main>
   );
 }
 
